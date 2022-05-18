@@ -45,7 +45,7 @@ class _PopUpSymptomsState extends State<PopUpSymptoms>
             color: Colors.white,
           ),
           margin:
-              EdgeInsets.only(top: 100, left: 20.0, right: 20.0, bottom: 20.0),
+              EdgeInsets.only(top: 80, left: 20.0, right: 20.0, bottom: 10.0),
           child: Stack(
             children: [
               Column(
@@ -84,7 +84,7 @@ class _PopUpSymptomsState extends State<PopUpSymptoms>
                             fontWeight: FontWeight.w900,
                           ),
                         ),
-                        SizedBox(height: getProportionateScreenHeight(15)),
+                        SizedBox(height: getProportionateScreenHeight(14)),
                         Text(
                           "Do you experiance any of the following symptoms?",
                           textAlign: TextAlign.center,

@@ -147,7 +147,7 @@ class _SchedulingPlanAPageState extends State<SchedulingPlanAPage> {
                         children: [
                           SizedBox(height: getProportionateScreenHeight(50)),
                           Text(
-                            "To get started, simply schedule your first CrossComp for free!",
+                            "Schedule your first CrossComp for FREE!",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: getProportionateScreenWidth(18),
@@ -156,171 +156,159 @@ class _SchedulingPlanAPageState extends State<SchedulingPlanAPage> {
                             ),
                           ),
                           SizedBox(height: getProportionateScreenHeight(15)),
-                          Text(
-                            "Schuduling CrossComps",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: getProportionateScreenWidth(20),
-                              color: Colors.black,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          Text(
-                            "Is 4-step process:",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: getProportionateScreenWidth(20),
-                              color: Colors.black,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
+
+
                         ],
                       ),
               ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              GestureDetector(
-                onTap: () {
-                  if (!mStatus) {
-                    (initX)
-                        ? (hQ1)
-                            ? Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FailedMedical()))
-                            : (!hQ2 & hQ3)
-                                ? hQ1Method(context)
-                                : Navigator.pushReplacement(
+              Column(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: getProportionateScreenHeight(15)),
+                  GestureDetector(
+                    onTap: () {
+                      if (!mStatus) {
+                        (initX)
+                            ? (hQ1)
+                                ? Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => FailedMedical()))
-                        : hQ1Method(context);
-                  }
-                },
-                child: Text(
-                  "Screening",
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color: mStatus
-                        ? Colors.black87
-                        : initX
-                            ? (hQ1)
-                                ? kTextRedColor
                                 : (!hQ2 & hQ3)
-                                    ? kTextGreenColor
-                                    : kTextRedColor
-                            : kTextGreenColor,
-                    fontSize: getProportionateScreenHeight(25),
-                    fontWeight: FontWeight.w900,
+                                    ? hQ1Method(context)
+                                    : Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => FailedMedical()))
+                            : hQ1Method(context);
+                      }
+                    },
+                    child: Text(
+                      "1. Screening",
+                      textAlign: TextAlign.start,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: mStatus
+                            ? Colors.black87
+                            : initX
+                                ? (hQ1)
+                                    ? kTextRedColor
+                                    : (!hQ2 & hQ3)
+                                        ? kTextGreenColor
+                                        : kTextRedColor
+                                : kTextGreenColor,
+                        fontSize: getProportionateScreenHeight(25),
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              GestureDetector(
-                onTap: () {
-                  print(mStatus);
-                  if (mStatus) {
-                    if (!consent) {
-                      showDialog(
-                        context: context,
-                        builder: (_) => PopUpInformedConsent(
-                          pressNo: () {
-                            Navigator.pop(_);
-                          },
-                          pressYes: () {
-                            stateMethod(_);
-                            HelperFunction.saveConsentSharedPreference(true);
-                          },
-                        ),
-                      );
-                    }
-                  }
-                },
-                child: Text(
-                  "Consent",
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color: consent
-                        ? Colors.black
-                        : mStatus
-                            ? kTextGreenColor
-                            : kPrimaryColor,
-                    fontSize: getProportionateScreenHeight(25),
-                    fontWeight: FontWeight.w900,
+                  SizedBox(height: getProportionateScreenHeight(15)),
+                  GestureDetector(
+                    onTap: () {
+                      print(mStatus);
+                      if (mStatus) {
+                        if (!consent) {
+                          showDialog(
+                            context: context,
+                            builder: (_) => PopUpInformedConsent(
+                              pressNo: () {
+                                Navigator.pop(_);
+                              },
+                              pressYes: () {
+                                stateMethod(_);
+                                HelperFunction.saveConsentSharedPreference(true);
+                              },
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    child: Text(
+                      "2. Consent",
+                      textAlign: TextAlign.start,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: consent
+                            ? Colors.black
+                            : mStatus
+                                ? kTextGreenColor
+                                : kPrimaryColor,
+                        fontSize: getProportionateScreenHeight(25),
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(height: isPaid ? getProportionateScreenHeight(15) : 0),
-              Container(
-                child: isPaid
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AccountPage()));
-                        },
-                        child: Text(
-                          "Account",
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          style: TextStyle(
-                            color: kPrimaryColor,
-                            fontSize: getProportionateScreenHeight(25),
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      )
-                    : Container(),
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              GestureDetector(
-                onTap: () {
-                  if (mStatus) {
-                    if (consent) {
-                      // if (!where) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WhereMap()));
-                      // }
-                    }
-                  }
-                },
-                child: Text(
-                  "Where?",
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color:  consent
-                            ? kTextGreenColor
-                            : kPrimaryColor,
-                    fontSize: getProportionateScreenHeight(25),
-                    fontWeight: FontWeight.w900,
+                  SizedBox(height: isPaid ? getProportionateScreenHeight(15) : 0),
+                  Container(
+                    child: isPaid
+                        ? GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AccountPage()));
+                            },
+                            child: Text(
+                              "Account",
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: kPrimaryColor,
+                                fontSize: getProportionateScreenHeight(25),
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          )
+                        : Container(),
                   ),
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              GestureDetector(
-                onTap: () {
-                  if (where) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => WhenPage()));
-                  }
-                },
-                child: Text(
-                  "When?",
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color: kPrimaryColor,
-                    fontSize: getProportionateScreenHeight(25),
-                    fontWeight: FontWeight.w900,
+                  SizedBox(height: getProportionateScreenHeight(15)),
+                  GestureDetector(
+                    onTap: () {
+                      if (mStatus) {
+                        if (consent) {
+                          // if (!where) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WhereMap()));
+                          // }
+                        }
+                      }
+                    },
+                    child: Text(
+                      "3. Where",
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color:  consent
+                                ? kTextGreenColor
+                                : kPrimaryColor,
+                        fontSize: getProportionateScreenHeight(25),
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(height: getProportionateScreenHeight(15)),
+                  GestureDetector(
+                    onTap: () {
+                      if (where) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => WhenPage()));
+                      }
+                    },
+                    child: Text(
+                      "4. When",
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: getProportionateScreenHeight(25),
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(15)),
+                ],
               ),
-              SizedBox(height: getProportionateScreenHeight(15)),
             ],
           ),
         ),

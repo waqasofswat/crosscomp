@@ -220,7 +220,7 @@ class _WhenPageState extends State<WhenPage> {
                for(var i = 0; i< hoursListSize; i++) {
                  print("aa ${map['hours_blocks'][i][2]}");
 
-                 _timimg.add({"day":"${map['hours_blocks'][i][2]}","timing": map['hours_blocks'][i][3].toString().substring(0,5)+ " - "+ map['hours_blocks'][i][4].toString().substring(0,5)  });
+                 _timimg.add({"day":"${map['hours_blocks'][i][2]}","timing": map['hours_blocks'][i][3].toString().substring(0,5).replaceAll(new RegExp(r'^0+(?=.)'), '')+ " - "+ map['hours_blocks'][i][4].toString().substring(0,5).replaceAll(new RegExp(r'^0+(?=.)'), '')  });
                }
                 /*if(map['server_response']["monday_HB"].toString().isNotEmpty)
                  _timimg.add({"day":"Monday","timing":map['server_response']["monday_HB"].toString()});
@@ -390,7 +390,7 @@ class _WhenPageState extends State<WhenPage> {
             padding:  EdgeInsets.all(5.0),
             child: SizedBox(
               height: 30.0,
-              child: Text(item["day"].toString()+ ' - ${item["timing"].toString()}', textAlign: TextAlign.center,style: indexSelected==index?
+              child: Text(item["day"].toString()+ ' / ${item["timing"].toString()}', textAlign: TextAlign.center,style: indexSelected==index?
               TextStyle(
                 fontSize: getProportionateScreenWidth(15),
                 color: Colors.white,
@@ -618,7 +618,7 @@ class _WhenPageState extends State<WhenPage> {
                   "You may arrive any time during your selected reservation time.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: getProportionateScreenWidth(13),
+                    fontSize: getProportionateScreenWidth(11),
                     color: kTextRedColor,
                     fontWeight: FontWeight.normal,
                   ),
@@ -630,7 +630,7 @@ class _WhenPageState extends State<WhenPage> {
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: AnimatedList(
-                        key: listKey,
+                        key: listKey,primary: false,
                         initialItemCount: _timimg.length,
                         itemBuilder: (context, index, animation) {
                           return animatedTile(
