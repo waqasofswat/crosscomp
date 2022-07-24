@@ -26,9 +26,9 @@ class _VolunteerPageState extends State<VolunteerPage> {
         ),
         backgroundColor: kPrimaryColor,
         title: Text(
-          "Volunteer",
+          "Volunteer Menu",
           textAlign: TextAlign.center,
-          maxLines: 2,
+          maxLines: 1,
           style: TextStyle(
             color: Colors.white,
             fontSize: getProportionateScreenHeight(18),

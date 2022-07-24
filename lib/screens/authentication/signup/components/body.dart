@@ -11,6 +11,7 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      reverse: true,
       child: Container(
         child: SafeArea(
           child: SizedBox(
@@ -22,12 +23,12 @@ class Body extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: SizeConfig.screenHeight * 0.04,
+                    height: SizeConfig.screenHeight * 0.03,
                   ),
                   Image.asset(
-                    "assets/images/logo.png",
-                    height: getProportionateScreenHeight(150),
-                    width: getProportionateScreenWidth(150),
+                    "assets/images/app_logo.jpg",
+                    height: getProportionateScreenHeight(200),
+                    width: getProportionateScreenWidth(200),
                   ),
                   Text(
                     "Sign-Up and get your first CrossComp for FREE!",

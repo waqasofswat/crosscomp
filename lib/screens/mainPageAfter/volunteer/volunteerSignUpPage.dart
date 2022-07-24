@@ -5,7 +5,8 @@ import 'package:cross_comp/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 
 class VolunteerSignUpPage extends StatefulWidget {
-  VolunteerSignUpPage({Key? key}) : super(key: key);
+ final bool isSecondStep;
+  VolunteerSignUpPage({Key? key, required bool this.isSecondStep}) : super(key: key);
 
   @override
   _VolunteerSignUpPageState createState() => _VolunteerSignUpPageState();
@@ -40,7 +41,7 @@ class _VolunteerSignUpPageState extends State<VolunteerSignUpPage> {
             children: [
               SizedBox(height: getProportionateScreenHeight(50)),
               Text(
-                "To become a Volunteer Affiliate with CrossComps, simply complete the 2 times linked below:",
+                "To become a Volunteer Affiliate with CrossComps, simply complete the 2 items below:",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(18),
@@ -49,33 +50,59 @@ class _VolunteerSignUpPageState extends State<VolunteerSignUpPage> {
                 ),
               ),
               SizedBox(height: getProportionateScreenHeight(15)),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OptiHealthPledgePage()));
-                },
-                child: Text(
-                  "OptiHealth Pledge",
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color: kTextGreenColor,
-                    fontSize: getProportionateScreenHeight(25),
-                    fontWeight: FontWeight.w900,
-                  ),
+          if(widget.isSecondStep)...[
+              Text(
+                "OptiHealth Pledge",
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: TextStyle(
+                  color: widget.isSecondStep?kPrimaryColor: kTextGreenColor,
+                  fontSize: getProportionateScreenHeight(25),
+                  fontWeight: FontWeight.w900,
                 ),
               ),
+              ]else...[
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OptiHealthPledgePage()));
+              },
+              child: Text(
+                "OptiHealth Pledge",
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: TextStyle(
+                  color: widget.isSecondStep?kPrimaryColor: kTextGreenColor,
+                  fontSize: getProportionateScreenHeight(25),
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+          ],
               SizedBox(height: getProportionateScreenHeight(15)),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => VolunteerAgreementPage()));
-                },
-                child: Text(
+              if(widget.isSecondStep)...[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VolunteerAgreementPage()));
+                  },
+                  child: Text(
+                    "Volunteer Agreement",
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: widget.isSecondStep?kTextGreenColor:kPrimaryColor ,
+                      fontSize: getProportionateScreenHeight(25),
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+              ]else...[
+                Text(
                   "Volunteer Agreement",
                   textAlign: TextAlign.center,
                   maxLines: 2,
@@ -85,7 +112,8 @@ class _VolunteerSignUpPageState extends State<VolunteerSignUpPage> {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-              ),
+              ]
+
             ],
           ),
         ),

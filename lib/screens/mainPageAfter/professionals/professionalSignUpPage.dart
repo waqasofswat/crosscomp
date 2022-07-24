@@ -5,7 +5,9 @@ import 'package:cross_comp/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 
 class ProfessionalSignUpPage extends StatefulWidget {
-  ProfessionalSignUpPage({Key? key}) : super(key: key);
+  bool ApplicationUploaded;
+
+  ProfessionalSignUpPage({Key? key, required bool this.ApplicationUploaded}) : super(key: key);
 
   @override
   _ProfessionalSignUpPageState createState() => _ProfessionalSignUpPageState();
@@ -40,7 +42,7 @@ class _ProfessionalSignUpPageState extends State<ProfessionalSignUpPage> {
             children: [
               SizedBox(height: getProportionateScreenHeight(50)),
               Text(
-                "To become a Professional Affiliate with CrossComps, simply complete the 2 times linked below in order:",
+                "To become a Professional Affiliate with CrossComps, simply complete the 2 items below:",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(18),
@@ -49,26 +51,42 @@ class _ProfessionalSignUpPageState extends State<ProfessionalSignUpPage> {
                 ),
               ),
               SizedBox(height: getProportionateScreenHeight(15)),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => QuesOne()));
-                },
-                child: Text(
-                  "Application",
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color: kTextGreenColor,
-                    fontSize: getProportionateScreenHeight(25),
-                    fontWeight: FontWeight.w900,
+              Row(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if(widget. ApplicationUploaded==true)...[
+                    Icon(
+                      Icons.done,
+                      color: Colors.blue,
+                      size: 25.0,
+                    ),
+                  SizedBox(width: 15,),
+
+                  ],
+
+                  GestureDetector(
+                    onTap: () {
+                      if(widget. ApplicationUploaded==false)
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => QuesOne()));
+                    },
+                    child: Text(
+                      "Application",
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color:widget. ApplicationUploaded==false?kTextGreenColor:kPrimaryColor,
+                        fontSize: getProportionateScreenHeight(25),
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               SizedBox(height: getProportionateScreenHeight(15)),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  if(widget. ApplicationUploaded==true)
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => ProfessionalAgreementPage()));
@@ -78,7 +96,7 @@ class _ProfessionalSignUpPageState extends State<ProfessionalSignUpPage> {
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   style: TextStyle(
-                    color: kPrimaryColor,
+                    color: widget.ApplicationUploaded==true?kTextGreenColor:kPrimaryColor,
                     fontSize: getProportionateScreenHeight(25),
                     fontWeight: FontWeight.w900,
                   ),

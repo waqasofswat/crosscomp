@@ -9,6 +9,7 @@ import 'package:cross_comp/utilities/constants.dart';
 import 'package:cross_comp/utilities/helperFunction.dart';
 import 'package:cross_comp/utilities/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -192,7 +193,7 @@ class _EventResgistrationState extends State<EventResgistration> {
   }
 
   Future<Map<String, dynamic>> saveEventData() async {
-    print("saveEventData");
+    print("saveEventDataa");
 
     int free = checkedValue ? 1 : 0;
     print("checkedValue $checkedValue");
@@ -206,7 +207,7 @@ class _EventResgistrationState extends State<EventResgistration> {
 
 
     String url = mainApiUrl +
-        "?set_event=true&User_ID=$userId&Event_Name=$eventName&PostalCode_ID=${list[postalCodeID]}&Street=$street&Day=$day&Date=$date&ParkName=$parkName&Start_Time=$startTime&End_Time=$endTime&address=$address&hourBlock1=$hourBlock1&hourBlock2=$hourBlock2&hourBlock3=$hourBlock3&hourBlock4=$hourBlock4&hourBlock5=$hourBlock5&lat=$lat&lng=$lng&isFree=$free";
+        "?set_event=true&User_ID=$userId&Event_Name=$eventName&PostalCode_ID=${list[postalCodeID].postalCode_ID}&Street=$street&Day=$day&Date=$date&ParkName=$parkName&Start_Time=$startTime&End_Time=$endTime&address=$address&hourBlock1=$hourBlock1&hourBlock2=$hourBlock2&hourBlock3=$hourBlock3&hourBlock4=$hourBlock4&hourBlock5=$hourBlock5&lat=$lat&lng=$lng&isFree=$free";
 
     print(url);
     final response = await http.get(Uri.parse(url));
@@ -475,34 +476,45 @@ class _EventResgistrationState extends State<EventResgistration> {
                         child: buildDaysSpinner(),
                       ),
 
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                        child: buildHourBlockSpinner(1),
+                      Visibility(
+                        visible: false,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                          child: buildHourBlockSpinner(1),
+                        ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                        child: buildHourBlockSpinner(2),
+                      Visibility(visible: false,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                          child: buildHourBlockSpinner(2),
+                        ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                        child: buildHourBlockSpinner(3),
+                      Visibility(visible: false,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                          child: buildHourBlockSpinner(3),
+                        ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                        child: buildHourBlockSpinner(4),
+                      Visibility(visible: false,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                          child: buildHourBlockSpinner(4),
+                        ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                        child: buildHourBlockSpinner(5),
+                      Visibility(visible: false,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                          child: buildHourBlockSpinner(5),
+                        ),
                       ),
                       CheckboxListTile(
                         title: Text(
-                          "__FREE TRAINING",
+                          "FREE TRAINING",
                           style: TextStyle(
                               color: kRedColor,
                               fontSize: getProportionateScreenWidth(18),
@@ -522,6 +534,27 @@ class _EventResgistrationState extends State<EventResgistration> {
                         child: DefaultButton(
                           text: "Submit",
                           press: () {
+
+                            if(eventName.length==0)
+                              {
+                                Fluttertoast.showToast(msg: "Please enter Event Name");
+                                return;
+                              }
+                            if(startTime.contains("Start"))
+                              {
+                                Fluttertoast.showToast(msg: "Start Time");
+                                return;
+                              }
+                            if(date.contains("End"))
+                              {
+                                Fluttertoast.showToast(msg: "End Time");
+                                return;
+                              }
+                            if(date.contains("Select Date"))
+                            {
+                              Fluttertoast.showToast(msg: "Invalid Date");
+                              return;
+                            }
                             saveEventData();
                           },
                           clr: kTextGreenColor,

@@ -124,7 +124,7 @@ class _VolunteerJudgeState extends State<VolunteerJudge> {
                     position: LatLng(lat, lng),
                     infoWindow: InfoWindow(
                         title: title,
-                        snippet: "This is an Event",
+                        snippet: "",
                         onTap: () {
                           Navigator.pushReplacement(
                               context,
@@ -143,7 +143,7 @@ class _VolunteerJudgeState extends State<VolunteerJudge> {
                     position: LatLng(lat, lng),
                     infoWindow: InfoWindow(
                         title: title,
-                        snippet: "This is an Event",
+                        snippet: "",
                         onTap: () {
                           Navigator.pushReplacement(
                               context,

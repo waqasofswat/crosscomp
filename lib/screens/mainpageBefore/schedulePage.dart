@@ -29,11 +29,14 @@ class _SchedulePageState extends State<SchedulePage> {
 
   getHQState() async {
     await HelperFunction.getInitSharedPreference().then((value) {
-      if (value != null)
+      if (value != null) {
         setState(() {
           initX = value;
           print("initX  :  $value");
         });
+      }else{
+        print("initX null");
+      }
     });
     await HelperFunction.getHQ1SharedPreference().then((value) {
       if (value != null)
@@ -116,7 +119,10 @@ class _SchedulePageState extends State<SchedulePage> {
                     pressNo: () {
                       Navigator.pop(_);
                     },
-                    pressYes: () {},
+                    pressYes: () {
+                      stateMethod(_);
+                      HelperFunction.saveConsentSharedPreference(true);
+                    },
                   ),
                 );
               },

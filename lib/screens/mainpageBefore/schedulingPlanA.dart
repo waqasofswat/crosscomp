@@ -214,6 +214,7 @@ class _SchedulingPlanAPageState extends State<SchedulingPlanAPage> {
                                 Navigator.pop(_);
                               },
                               pressYes: () {
+
                                 stateMethod(_);
                                 HelperFunction.saveConsentSharedPreference(true);
                               },
@@ -275,7 +276,7 @@ class _SchedulingPlanAPageState extends State<SchedulingPlanAPage> {
                       }
                     },
                     child: Text(
-                      "3. Where",
+                      "3. Where & When",
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       style: TextStyle(
@@ -288,21 +289,23 @@ class _SchedulingPlanAPageState extends State<SchedulingPlanAPage> {
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(15)),
-                  GestureDetector(
-                    onTap: () {
-                      if (where) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => WhenPage()));
-                      }
-                    },
-                    child: Text(
-                      "4. When",
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      style: TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: getProportionateScreenHeight(25),
-                        fontWeight: FontWeight.w900,
+                  Visibility(visible: false,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (where) {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => WhenPage()));
+                        }
+                      },
+                      child: Text(
+                        "4. When",
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontSize: getProportionateScreenHeight(25),
+                          fontWeight: FontWeight.w900,
+                        ),
                       ),
                     ),
                   ),

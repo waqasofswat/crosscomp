@@ -1,6 +1,7 @@
 import 'package:cross_comp/component/default_button.dart';
 import 'package:cross_comp/screens/mainPageAfter/professionals/professionalApplicationQuestions/questionFour.dart';
 import 'package:cross_comp/utilities/constants.dart';
+import 'package:cross_comp/utilities/helperFunction.dart';
 import 'package:cross_comp/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,23 @@ class QuesThree extends StatefulWidget {
 }
 
 class _QuesThreeState extends State<QuesThree> {
+  final TextEditingController _q3controller = TextEditingController();
+
+  Future<void> _read() async {
+    String v=await HelperFunction.getPQ3SharedPreference()??"";
+    setState(()  {
+      _q3controller.text=v;
+    });
+
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _read();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +70,7 @@ class _QuesThreeState extends State<QuesThree> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Text(
-                    "Briefly explain why you want to be a Professional Affiliate with CrossComps",
+                    "Briefly explain why you want to be a Professional Affiliate with CrossComps.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
@@ -62,24 +80,17 @@ class _QuesThreeState extends State<QuesThree> {
                   ),
                 ),
                 SizedBox(height: getProportionateScreenHeight(15)),
-                Text(
-                  "---------------------------------------------",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: getProportionateScreenWidth(18),
-                    color: Colors.black87,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
+
                 SizedBox(height: getProportionateScreenHeight(10)),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 25),
                   height: 200,
                   child: TextFormField(
+                    controller: _q3controller,
                     onChanged: (txt) {},
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
-                    initialValue: '',
+                   // initialValue: '',
                     decoration: InputDecoration(
                       labelText: 'Response',
                       border: OutlineInputBorder(),
@@ -87,15 +98,7 @@ class _QuesThreeState extends State<QuesThree> {
                   ),
                 ),
                 SizedBox(height: getProportionateScreenHeight(10)),
-                Text(
-                  "---------------------------------------------",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: getProportionateScreenWidth(18),
-                    color: Colors.black87,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
+
                 SizedBox(height: getProportionateScreenHeight(10)),
                 Text(
                   "(1,000 charater limit)",
@@ -112,6 +115,8 @@ class _QuesThreeState extends State<QuesThree> {
                   child: DefaultButton(
                       text: "Save & Continue",
                       press: () {
+                        HelperFunction.savePQ3SharedPreference(_q3controller.value.text);
+
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -126,6 +131,9 @@ class _QuesThreeState extends State<QuesThree> {
                   child: DefaultButton(
                       text: "Save & Exit",
                       press: () {
+                        HelperFunction.savePQ3SharedPreference(_q3controller.value.text);
+
+
                         Navigator.pop(context);
                       },
                       clr: kRedColor,

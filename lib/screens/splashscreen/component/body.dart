@@ -14,7 +14,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
-    {"text": "Welcome to Cross Comp", "image": "assets/images/logo.png"},
+    {"text": "Welcome to CrossComps", "image": "assets/images/app_logo.jpg"},
   ];
   @override
   Widget build(BuildContext context) {
@@ -47,11 +47,14 @@ class _BodyState extends State<Body> {
                 child: Column(
                   children: [
                     Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        splashData.length,
-                        (index) => buildDot(index: index),
+                    Visibility(
+                      visible: false,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          splashData.length,
+                          (index) => buildDot(index: index),
+                        ),
                       ),
                     ),
                     Spacer(

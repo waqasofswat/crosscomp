@@ -58,7 +58,7 @@ class _SignFormState extends State<SignForm> {
             setState(() {
               // _btnController.error();
               // progress?.dismiss();
-              Scaffold.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(map['msg']),
               ));
 
@@ -78,6 +78,9 @@ class _SignFormState extends State<SignForm> {
                 passwordController.text);
             HelperFunction.saveUserNameSharedPreference(
                 "${map["server_response"][0]["First_Name"]} ${map["server_response"][0]["Last_Name"]}");
+
+            HelperFunction.saveUserTypeSharedPreference( "${map["server_response"][0]["User_Type"]}");
+
             // _btnController.success();
             // progress?.dismiss();
             isLoading = false;
@@ -146,24 +149,25 @@ class _SignFormState extends State<SignForm> {
                   buildPasswordTextFormField(
                       passwordController: passwordController),
                   SizedBox(height: getProportionateScreenHeight(30)),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            rememberMe = value!;
-                          });
-                        },
+                  CheckboxListTile(
+
+                      activeColor: kPrimaryColor,
+                      dense: true,
+                      //font change
+                      title: new Text(
+                        "Remember Me",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.9),
                       ),
-                      Text("Remember me"),
-                      Spacer(),
-                      // Text(
-                      //   "Forgot Password",
-                      //   style: TextStyle(decoration: TextDecoration.underline),
-                      // )
-                    ],
-                  ),
+                      value:rememberMe,
+
+                      onChanged: ( val) {
+                        setState(() {
+                          rememberMe = val!;
+                        });
+                      }),
                   SizedBox(height: getProportionateScreenHeight(20)),
                   ErrorForm(errors: errors),
                   SizedBox(height: getProportionateScreenHeight(20)),

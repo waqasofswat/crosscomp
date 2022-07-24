@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
                     height: SizeConfig.screenHeight * 0.04,
                   ),
                   Image.asset(
-                    "assets/images/logo.png",
+                    "assets/images/app_logo.jpg",
                     height: getProportionateScreenHeight(150),
                     width: getProportionateScreenWidth(150),
                   ),

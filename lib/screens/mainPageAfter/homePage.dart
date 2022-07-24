@@ -1,9 +1,13 @@
+import 'dart:convert';
+
+import 'package:cross_comp/component/loading.dart';
 import 'package:cross_comp/screens/mainPageAfter/fragments/moreFrag.dart';
 import 'package:cross_comp/screens/mainPageAfter/fragments/professionalFrag.dart';
 import 'package:cross_comp/screens/mainPageAfter/fragments/profileFrag.dart';
 import 'package:cross_comp/screens/mainPageAfter/fragments/scoresFrag.dart';
 import 'package:cross_comp/screens/mainPageAfter/fragments/teamFrag.dart';
 import 'package:cross_comp/screens/mainPageAfter/fragments/volunteerFrag.dart';
+import 'package:cross_comp/screens/mainPageAfter/professionals/profStatusPendingPage.dart';
 import 'package:cross_comp/screens/mainPageAfter/trainings/freeTrainings.dart';
 
 import 'package:cross_comp/utilities/constants.dart';
@@ -13,7 +17,7 @@ import 'package:flutter/material.dart';
 
 import 'fragments/challengesFrag.dart';
 import 'fragments/reservations.dart';
-
+import 'package:http/http.dart' as http;
 class DrawerItem {
   String title;
   DrawerItem(this.title);
@@ -39,7 +43,7 @@ class HomePage extends StatefulWidget {
     new DrawerItem("Training"),
     new DrawerItem("Profile"),
     new DrawerItem("More"),
-    new DrawerItem("Volunteer")
+    new DrawerItem("Volunteer Menu")
   ];
   final drawerItemsProf = [
     new DrawerItem("Reservation"),
@@ -50,7 +54,7 @@ class HomePage extends StatefulWidget {
     new DrawerItem("Training"),
     new DrawerItem("Profile"),
     new DrawerItem("More"),
-    new DrawerItem("Volunteer"),
+    new DrawerItem("Volunteer Menu"),
     new DrawerItem("Professional")
   ];
   @override
@@ -58,6 +62,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isLoading = false;
+
   bool isVol = false;
   bool isProf = false;
   bool isMore = false;
@@ -66,7 +72,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getStates();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      getUserData();
+    });
+
     HelperFunction.saveProfShuttleSharedPreference(false);
     HelperFunction.saveProfSquartSharedPreference(false);
     HelperFunction.saveProfLegRaiseSharedPreference(false);
@@ -74,10 +83,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   getStates() async {
-    await HelperFunction.getVolSharedPreference().then((value) {
+    await HelperFunction.getUserTypeSharedPreference().then((value) {
       if (value != null)
         setState(() {
-          isVol = value;
+          if(value.toLowerCase().contains("professional")){
+            isVol=true;
+            isProf=true;
+            HelperFunction.saveVolSharedPreference(true);
+            HelperFunction.saveProfSharedPreference(true);
+          }else if(value.toLowerCase().contains("volunteer")){
+            isVol=true;
+            isProf=false;
+            HelperFunction.saveVolSharedPreference(true);
+            HelperFunction.saveProfSharedPreference(false);
+
+          }else{
+            isProf=false;
+            isVol=false;
+            HelperFunction.saveProfSharedPreference(false);
+            HelperFunction.saveVolSharedPreference(false);
+          }
           print("isVol  :  $value");
         });
     });
@@ -85,7 +110,7 @@ class _HomePageState extends State<HomePage> {
     await HelperFunction.getProfSharedPreference().then((value) {
       if (value != null)
         setState(() {
-          isProf = value;
+        //  isProf = value;
           print("isProf  :  $value");
         });
     });
@@ -136,47 +161,63 @@ class _HomePageState extends State<HomePage> {
     if (isProf) {
       for (var i = 0; i < widget.drawerItemsProf.length; i++) {
         var d = widget.drawerItemsProf[i];
-        drawerOptions.add(new ListTile(
-          title: new Text(
-            d.title,
-            style: TextStyle(
-              fontSize: getProportionateScreenHeight(18),
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          selected: i == _selectedDrawerIndex,
-          onTap: () => _onSelectItem(i),
-        ));
+
+          drawerOptions.add(
+              ListTile(
+                title: new Text(
+                  d.title,
+                  style: TextStyle(
+                    fontSize: getProportionateScreenHeight(18),
+                    fontWeight: FontWeight.w900,
+                    color: d.title.contains("More")?kGreenColor:kPrimaryColor,
+                  ),
+                ),
+                selected: i == _selectedDrawerIndex,
+                onTap: () => _onSelectItem(i),
+              )
+          );
+
+
+
+
       }
     } else if (isVol) {
       for (var i = 0; i < widget.drawerItemsVol.length; i++) {
         var d = widget.drawerItemsVol[i];
-        drawerOptions.add(new ListTile(
-          title: new Text(
-            d.title,
-            style: TextStyle(
-              fontSize: getProportionateScreenHeight(18),
-              fontWeight: FontWeight.w900,
+
+          drawerOptions.add(new ListTile(
+            title: new Text(
+              d.title,
+              style: TextStyle(
+                fontSize: getProportionateScreenHeight(18),
+                fontWeight: FontWeight.w900,
+                color: d.title.contains("More") ? kGreenColor : kPrimaryColor,
+
+              ),
             ),
-          ),
-          selected: i == _selectedDrawerIndex,
-          onTap: () => _onSelectItem(i),
-        ));
+            selected: i == _selectedDrawerIndex,
+            onTap: () => _onSelectItem(i),
+          ));
+
       }
     } else {
       for (var i = 0; i < widget.drawerItems.length; i++) {
         var d = widget.drawerItems[i];
-        drawerOptions.add(ListTile(
-          title: Text(
-            d.title,
-            style: TextStyle(
-              fontSize: getProportionateScreenHeight(18),
-              fontWeight: FontWeight.w900,
+
+          drawerOptions.add(ListTile(
+            title: Text(
+              d.title,
+              style: TextStyle(
+                fontSize: getProportionateScreenHeight(18),
+                fontWeight: FontWeight.w900,
+                color: d.title.contains("More") ? kGreenColor : kPrimaryColor,
+
+              ),
             ),
-          ),
-          selected: i == _selectedDrawerIndex,
-          onTap: () => _onSelectItem(i),
-        ));
+            selected: i == _selectedDrawerIndex,
+            onTap: () => _onSelectItem(i),
+          ));
+
       }
     }
 
@@ -217,9 +258,96 @@ class _HomePageState extends State<HomePage> {
         drawer: Drawer(
           child: ListView(children: drawerOptions),
         ),
-        body: _getDrawerItemWidget(_selectedDrawerIndex),
+        body:  isLoading
+          ? Center(child: Loading())
+            : _getDrawerItemWidget(_selectedDrawerIndex),
       ),
       //
     );
+  }
+
+  Future<Map<String, dynamic>> getUserData() async {
+    setState(() {
+      isLoading = true;
+
+    });
+
+   String? email= await HelperFunction.getUserEmailSharedPreference();
+   String? password= await HelperFunction.getUserPassSharedPreference();
+    String url = mainApiUrl +
+        "?login_user=true&login_email=${email}&login_pass=${password}";
+
+    print(url);
+    final response = await http.get(Uri.parse(url));
+
+    print(response.statusCode.toString());
+    print(response.body.toString());
+    if (response.statusCode == 200) {
+      if (response.body.toString().contains("Failure")) {
+        print("response Failed");
+        setState(() {
+          // _loading = false;
+          isLoading = false;
+        });
+      } else {
+        // import 'dart:convert';
+
+        Map<String, dynamic> map = jsonDecode(response.body);
+        if (map['status'] == "failed") {
+          setState(() {
+            // _btnController.error();
+            // progress?.dismiss();
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(map['msg']),
+            ));
+
+            //
+            isLoading = false;
+            password= "";
+          });
+        } else {
+          print(map["server_response"][0]["First_Name"]);
+
+          HelperFunction.saveUserIdSharedPreference(
+              "${map["server_response"][0]["User_ID"]}");
+
+          HelperFunction.saveUserNameSharedPreference(
+              "${map["server_response"][0]["First_Name"]} ${map["server_response"][0]["Last_Name"]}");
+
+          HelperFunction.saveUserTypeSharedPreference( "${map["server_response"][0]["User_Type"]}");
+          getStates();
+          // _btnController.success();
+          // progress?.dismiss();
+          isLoading = false;
+          //getLogin();
+        }
+        // String id = map['id'];
+        // String org_id = map['org_id'];
+        // String username = map['username'];
+        // String password = map['password'];
+        // String fcm_token = map['fcm_token'];
+        // String status = map['status'];
+        // HelperFunction.saveUserNameSharedPreference(username);
+        // HelperFunction.saveUserStatusSharedPreference(status);
+        // HelperFunction.saveIdSharedPreference(id);
+        // HelperFunction.saveUserOrgIdSharedPreference(org_id);
+
+        print("response Success");
+
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => MainPage(
+        //             notificationsActionStreamSubscription:
+        //                 widget.notificationsActionStreamSubscription)));
+
+      }
+      return json.decode(response.body);
+    } else {
+      // _btnController.error();
+      // progress?.dismiss();
+      isLoading = false;
+      throw Exception('Failed to fetch data');
+    }
   }
 }

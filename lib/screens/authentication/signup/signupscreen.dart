@@ -12,15 +12,15 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
+      resizeToAvoidBottomInset: true,
+/*      appBar: AppBar(
         centerTitle: true,
         iconTheme: IconThemeData(
           color: Colors.white, //change your color here
         ),
         title: Text("Sign Up"),
-      ),
-      body: Body(toggle),
+      ),*/
+      body: SafeArea(child: Body(toggle)),
     );
   }
 }

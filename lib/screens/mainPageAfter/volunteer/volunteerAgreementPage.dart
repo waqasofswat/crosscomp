@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cross_comp/component/default_button.dart';
 import 'package:cross_comp/component/loading.dart';
 import 'package:cross_comp/screens/mainPageAfter/volunteer/volStatusPendingPage.dart';
+import 'package:cross_comp/screens/mainpageBefore/webPage.dart';
 import 'package:cross_comp/utilities/constants.dart';
 import 'package:cross_comp/utilities/helperFunction.dart';
 import 'package:cross_comp/utilities/size_config.dart';
@@ -19,6 +20,8 @@ class VolunteerAgreementPage extends StatefulWidget {
 class _VolunteerAgreementPageState extends State<VolunteerAgreementPage> {
   String userId = "";
   bool isLoading = false;
+  var checked2Value=false;
+  var checked1Value=false;
   @override
   void initState() {
     // TODO: implement initState
@@ -123,46 +126,26 @@ class _VolunteerAgreementPageState extends State<VolunteerAgreementPage> {
           padding: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
             children: [
-              SizedBox(height: getProportionateScreenHeight(50)),
-              DefaultButton(
-                  text: "Download & Peview",
-                  press: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => VolunteerSignUpPage()));
-                  },
-                  clr: kTextGreenColor,
-                  isInfinity: true),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              Text(
-                "___ I have read the CrossComp Volunteer Agreement. ",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              Text(
-                "___ I understand and agree to the terms and conditions.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              DefaultButton(
-                  text: "Submit",
-                  press: () {
-                    setState(() {
-                      isLoading=true;
-                    });
-                    updateUserType();
+              SizedBox(height: getProportionateScreenHeight(20)),
 
+              Text(
+                "Click on the link below to read and sign the",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(16),
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),SizedBox(height: getProportionateScreenHeight(5)),
+              DefaultButton(
+                  text: "Volunteer Agreement",
+                  press: () {
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                WebPage("https://www.crosscomps.com/volunteer-agreement.html")));
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
@@ -170,6 +153,94 @@ class _VolunteerAgreementPageState extends State<VolunteerAgreementPage> {
                   },
                   clr: kTextGreenColor,
                   isInfinity: true),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              Row(
+                children: [
+                  Checkbox(value: checked1Value, onChanged: (val){
+                    setState(() {
+                      checked1Value = val!;
+                    });
+                  }),
+                  Expanded(
+
+                    child: Text(
+                      " I read the CrossComp Volunteer Agreement linked above.",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(16),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              Row(
+                children: [
+                  Checkbox(value: checked2Value, onChanged: (val){
+                    setState(() {
+                      checked2Value = val!;
+                    });
+                  }),
+                  Flexible(
+                    child: Text(
+                      " I understand and agree to its terms and conditions.",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(16),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              if(checked1Value && checked2Value)...[
+                DefaultButton(
+                    text: "Submit",
+                    press: () {
+                      setState(() {
+                        isLoading=true;
+                      });
+                      updateUserType();
+
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => VolunteerSignUpPage(isSecondStep: true,)));
+                    },
+                    clr: kTextGreenColor,
+                    isInfinity: true),
+              ]else...[
+
+
+                SizedBox(
+                  width:double.infinity,
+                  height: getProportionateScreenHeight(45),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: SelectedBorder(),
+                      backgroundColor: MaterialStateProperty.all(Colors.black26),
+                    ),
+                    onPressed: null,
+                    child: Text(
+                      "Submit",
+                      style: TextStyle(
+                        fontSize:getProportionateScreenWidth(16),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                // DefaultButton(
+                //     text: "Submit",
+                //     press:null,
+                //     clr: kTextGreenColor,
+                //     isInfinity: true),
+              ],
+
               SizedBox(height: getProportionateScreenHeight(15)),
             ],
           ),

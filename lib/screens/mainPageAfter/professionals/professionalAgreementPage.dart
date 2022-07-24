@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cross_comp/component/default_button.dart';
 import 'package:cross_comp/component/loading.dart';
 import 'package:cross_comp/screens/mainPageAfter/professionals/profStatusPendingPage.dart';
+import 'package:cross_comp/screens/mainpageBefore/webPage.dart';
 import 'package:cross_comp/utilities/constants.dart';
 import 'package:cross_comp/utilities/helperFunction.dart';
 import 'package:cross_comp/utilities/size_config.dart';
@@ -20,6 +21,9 @@ class ProfessionalAgreementPage extends StatefulWidget {
 class _ProfessionalAgreementPageState extends State<ProfessionalAgreementPage> {
   String userId = "";
   bool isLoading = false;
+  var checked2Value=false;
+  var checked1Value=false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,10 +43,6 @@ class _ProfessionalAgreementPageState extends State<ProfessionalAgreementPage> {
   }
   Future<Map<String, dynamic>> updateUserType() async {
     print("updateUserType");
-
-
-
-
     String url = mainApiUrl +
         "?profile_userType=true&User_ID=$userId&User_Type=professional";
 
@@ -54,7 +54,6 @@ class _ProfessionalAgreementPageState extends State<ProfessionalAgreementPage> {
     //   headers: header,
     //   body: {'getUser_Scores': "true", 'userId': UserId},
     // );
-
     print(response.statusCode.toString());
     print(response.body.toString());
     if (response.statusCode == 200) {
@@ -124,46 +123,28 @@ class _ProfessionalAgreementPageState extends State<ProfessionalAgreementPage> {
           padding: EdgeInsets.symmetric(horizontal: 40),
           child: Column(
             children: [
-              SizedBox(height: getProportionateScreenHeight(50)),
-              DefaultButton(
-                  text: "Download & Peview",
-                  press: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => VolunteerSignUpPage()));
-                  },
-                  clr: kTextGreenColor,
-                  isInfinity: true),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              Text(
-                "___  I downloaded and read the Professional Agreement. ",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              Text(
-                "___ I understand and agree to the terms and conditions.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: getProportionateScreenHeight(15)),
-              DefaultButton(
-                  text: "Submit",
-                  press: () {
-                    setState(() {
-                      isLoading=true;
-                    });
-                    updateUserType();
+              SizedBox(height: getProportionateScreenHeight(30)),
 
+              Text(
+              "Click on the link below to read and sign the",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: getProportionateScreenWidth(18),
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+              SizedBox(height: getProportionateScreenHeight(15)),
+
+              DefaultButton(
+                  text: "Professional Agreement",
+                  press: () {
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  WebPage("http://www.crosscomps.com/professional-agreement.html")));
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
@@ -171,6 +152,93 @@ class _ProfessionalAgreementPageState extends State<ProfessionalAgreementPage> {
                   },
                   clr: kTextGreenColor,
                   isInfinity: true),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              Row(
+                children: [
+                  Checkbox(value: checked1Value, onChanged: (val){
+                    setState(() {
+                      checked1Value = val!;
+                    });
+                  }),
+                  Flexible(
+                    child: Text(
+                      "I downloaded and read the Professional Agreement. ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(18),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              Row(
+                children: [
+                  Checkbox(value: checked2Value, onChanged: (val){
+                    setState(() {
+                      checked2Value = val!;
+                    });
+                  }),
+                  Flexible(
+                    child: Text(
+                      "I understand and agree to the terms and conditions.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(18),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              if(checked1Value && checked2Value)...[
+                DefaultButton(
+                    text: "Submit",
+                    press: () {
+                      setState(() {
+                        isLoading=true;
+                      });
+                      //updateUserType();
+
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => VolunteerSignUpPage()));
+                    },
+                    clr: kTextGreenColor,
+                    isInfinity: true),
+              ]else...[
+
+
+                SizedBox(
+                  width:double.infinity,
+                  height: getProportionateScreenHeight(45),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: SelectedBorder(),
+                      backgroundColor: MaterialStateProperty.all(Colors.black26),
+                    ),
+                    onPressed: null,
+                    child: Text(
+                      "Submit",
+                      style: TextStyle(
+                        fontSize:getProportionateScreenWidth(16),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                // DefaultButton(
+                //     text: "Submit",
+                //     press:null,
+                //     clr: kTextGreenColor,
+                //     isInfinity: true),
+              ],
+
               SizedBox(height: getProportionateScreenHeight(15)),
             ],
           ),

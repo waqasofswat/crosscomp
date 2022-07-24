@@ -49,7 +49,7 @@ class _AffliateProfPageState extends State<AffliateProfPage> {
                 ),
               ),
               Text(
-                "You are eligible to Affiliate with our fitness network as a:",
+                "you are eligible to Affiliate with our fitness network as a:",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(18),
@@ -59,12 +59,13 @@ class _AffliateProfPageState extends State<AffliateProfPage> {
               ),
               SizedBox(height: getProportionateScreenHeight(50)),
               DefaultButton(
-                  text: "Professional",
+                  text: "Professional",size: 16.0 ,
+
                   press: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProfessionalSignUpPage()));
+                            builder: (context) => ProfessionalSignUpPage(ApplicationUploaded:false)));
                   },
                   clr: kTextGreenColor,
                   isInfinity: true),

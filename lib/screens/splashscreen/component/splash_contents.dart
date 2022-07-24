@@ -15,7 +15,7 @@ class SplashContent extends StatelessWidget {
       children: [
         Spacer(),
         Text(
-          "Opti Health",
+          "OptiHealth",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(36),
             color: kPrimaryColor,

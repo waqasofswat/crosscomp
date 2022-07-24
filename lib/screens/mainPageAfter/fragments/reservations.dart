@@ -239,7 +239,7 @@ class _ReservationFragState extends State<ReservationFrag> {
                     ),
                     if(day.toLowerCase().contains("monday"))...[
                       Text(
-                        DateTime.now().next(DateTime.monday).toString().substring(0,10),
+                        DateTime.now().next(DateTime.monday).toString().substring(8,10)+"-"+DateTime.now().next(DateTime.monday).toString().substring(5,8)+DateTime.now().next(DateTime.monday).toString().substring(0,4),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(25),
@@ -250,7 +250,7 @@ class _ReservationFragState extends State<ReservationFrag> {
                     ],
                  if(day.toLowerCase().contains("tuesday"))...[
                       Text(
-                        DateTime.now().next(DateTime.tuesday).toString().substring(0,10),
+                        DateTime.now().next(DateTime.tuesday).toString().substring(8,10)+"-"+DateTime.now().next(DateTime.tuesday).toString().substring(5,8)+DateTime.now().next(DateTime.tuesday).toString().substring(0,4),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(25),
@@ -261,7 +261,7 @@ class _ReservationFragState extends State<ReservationFrag> {
                     ],
                     if(day.toLowerCase().contains("wednesday"))...[
                       Text(
-                        DateTime.now().next(DateTime.wednesday).toString().substring(0,10),
+                         DateTime.now().next(DateTime.wednesday).toString().substring(8,10)+"-"+DateTime.now().next(DateTime.wednesday).toString().substring(5,8)+DateTime.now().next(DateTime.wednesday).toString().substring(0,4),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(25),
@@ -272,7 +272,7 @@ class _ReservationFragState extends State<ReservationFrag> {
                     ],
                     if(day.toLowerCase().contains("thursday"))...[
                       Text(
-                        DateTime.now().next(DateTime.thursday).toString().substring(0,10),
+                        DateTime.now().next(DateTime.thursday).toString().substring(8,10)+"-"+DateTime.now().next(DateTime.thursday).toString().substring(5,8)+DateTime.now().next(DateTime.thursday).toString().substring(0,4),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(25),
@@ -283,7 +283,7 @@ class _ReservationFragState extends State<ReservationFrag> {
                     ],
                     if(day.toLowerCase().contains("friday"))...[
                       Text(
-                        DateTime.now().next(DateTime.friday).toString().substring(0,10),
+                        DateTime.now().next(DateTime.friday).toString().substring(8,10)+"-"+DateTime.now().next(DateTime.friday).toString().substring(5,8)+DateTime.now().next(DateTime.friday).toString().substring(0,4),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(25),
@@ -294,7 +294,7 @@ class _ReservationFragState extends State<ReservationFrag> {
                     ],
                     if(day.toLowerCase().contains("saturday"))...[
                       Text(
-                        DateTime.now().next(DateTime.saturday).toString().substring(0,10),
+                        DateTime.now().next(DateTime.saturday).toString().substring(8,10)+"-"+DateTime.now().next(DateTime.saturday).toString().substring(5,8)+DateTime.now().next(DateTime.saturday).toString().substring(0,4),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(25),
@@ -305,7 +305,7 @@ class _ReservationFragState extends State<ReservationFrag> {
                     ],
                     if(day.toLowerCase().contains("sunday"))...[
                       Text(
-                        DateTime.now().next(DateTime.sunday).toString().substring(0,10),
+                        DateTime.now().next(DateTime.sunday).toString().substring(8,10)+"-"+DateTime.now().next(DateTime.sunday).toString().substring(5,8)+DateTime.now().next(DateTime.sunday).toString().substring(0,4),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(25),
@@ -324,44 +324,45 @@ class _ReservationFragState extends State<ReservationFrag> {
                         fontWeight: FontWeight.w900,
                       ),
                     ),
+
+                    Container(
+                      height: getProportionateScreenHeight(170),
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        // mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: getProportionateScreenHeight(15)),
+                          DefaultButton(
+                              text: "Instructions",
+                              press: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WebPage(
+                                            "http://www.crosscomps.com/instructions")));
+                              },
+                              clr: kPrimaryColor,
+                              isInfinity: true),
+                          SizedBox(height: getProportionateScreenHeight(15)),
+
+                          DefaultButton(
+                              text: "Change Reservation",
+                              press: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WhereMap()));
+                              },
+                              clr: kTextGreenColor,
+                              isInfinity: true),
+
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: getProportionateScreenHeight(170),
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    // mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: getProportionateScreenHeight(15)),
-                      DefaultButton(
-                          text: "Edit",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => WhereMap()));
-                          },
-                          clr: kTextGreenColor,
-                          isInfinity: false),
-                      SizedBox(height: getProportionateScreenHeight(15)),
-                      DefaultButton(
-                          text: "INSTRUCTIONS",
-                          press: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => WebPage(
-                                        "http://www.crosscomps.com/instructions")));
-                          },
-                          clr: kPrimaryColor,
-                          isInfinity: true),
-                    ],
-                  ),
-                ),
-              ),
+
 
             ],
           ),

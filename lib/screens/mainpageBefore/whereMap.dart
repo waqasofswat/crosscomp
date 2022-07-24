@@ -21,11 +21,18 @@ class _WhereMapState extends State<WhereMap> {
 
   //static LatLng _center = LatLng(-15.4630239974464, 28.363397732282127);
   static LatLng _initialPosition =
-      LatLng(-15.4630239974464, 28.363397732282127);
+      LatLng(33.953350, -117.396156);
   final Set<Marker> _markers = {};
   static LatLng _lastMapPosition = _initialPosition;
   bool isLoading = true;
+  void _getUserLocation() async {
+    var position = await GeolocatorPlatform.instance
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
+    setState(() {
+      _initialPosition = LatLng(position.latitude, position.longitude);
+    });
+  }
   @override
   void initState() {
 
@@ -34,31 +41,31 @@ class _WhereMapState extends State<WhereMap> {
     _getUserLocation();
   }
 
-  void _getUserLocation() async {
-    print('_getUserLocation');
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    print('_getUserLocation 2 ');
-    try {
-      print('_getUserLocation : try');
-      List<Placemark> placemark =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
-
-      print('_getUserLocation : await');
-      setState(() {
-        print(
-            '_getUserLocation : setstate ${position.latitude} ${position.longitude}');
-        _initialPosition = LatLng(position.latitude, position.longitude);
-        _lastMapPosition = LatLng(position.latitude, position.longitude);
-        print('${placemark[0].name}');
-        isLoading = false;
-      });
-    } catch (e) {
-      print('_getUserLocation : error : $e');
-      print(e);
-    }
-  }
+  // void _getUserLocation() async {
+  //   print('_getUserLocation');
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //
+  //   print('_getUserLocation 2 ');
+  //   try {
+  //     print('_getUserLocation : try');
+  //     List<Placemark> placemark =
+  //         await placemarkFromCoordinates(position.latitude, position.longitude);
+  //
+  //     print('_getUserLocation : await');
+  //     setState(() {
+  //       print(
+  //           '_getUserLocation : setstate ${position.latitude} ${position.longitude}');
+  //       _initialPosition = LatLng(position.latitude, position.longitude);
+  //       _lastMapPosition = LatLng(position.latitude, position.longitude);
+  //       print('${placemark[0].name}');
+  //       isLoading = false;
+  //     });
+  //   } catch (e) {
+  //     print('_getUserLocation : error : $e');
+  //     print(e);
+  //   }
+  // }
   List<Map<String, String>> _event = [];
   List<Map<String, String>> _facility = [];
   Future<Map<String, dynamic>> getEventsFacilitiesData() async {
@@ -116,7 +123,7 @@ class _WhereMapState extends State<WhereMap> {
                   position: LatLng(lat, lng),
                   infoWindow: InfoWindow(
                       title: title,
-                      snippet: "This is an Event",
+                      snippet: "",
                       onTap: () {
 
                         HelperFunction.saveWhereTypeSharedPreference("event");
@@ -154,7 +161,7 @@ class _WhereMapState extends State<WhereMap> {
                   position: LatLng(lat,lng),
                   infoWindow: InfoWindow(
                       title: title,
-                      snippet: "This is a facility",
+                      snippet: "",
                       onTap: () {
                         HelperFunction.saveWhereTypeSharedPreference("facility");
                         HelperFunction.saveWhereSharedPreference(id);
@@ -215,8 +222,8 @@ class _WhereMapState extends State<WhereMap> {
           markerId: MarkerId(_lastMapPosition.toString()),
           position: _lastMapPosition,
           infoWindow: InfoWindow(
-              title: "Pizza Parlour",
-              snippet: "This is a snippet",
+              title: "Test marker",
+              snippet: "Description",
               onTap: () {}),
           onTap: () {},
           icon: BitmapDescriptor.defaultMarker));

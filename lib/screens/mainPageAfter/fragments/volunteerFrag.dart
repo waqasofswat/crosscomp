@@ -4,8 +4,12 @@ import 'package:cross_comp/screens/mainPageAfter/volunteer/assistantTrainers/ass
 import 'package:cross_comp/screens/mainPageAfter/volunteer/coCaptain/volunteerCoCaptain.dart';
 import 'package:cross_comp/screens/mainPageAfter/volunteer/volunteerJudge/volunteerJudge.dart';
 import 'package:cross_comp/utilities/constants.dart';
+import 'package:cross_comp/utilities/helperFunction.dart';
 import 'package:cross_comp/utilities/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import 'professionalFrag.dart';
 
 class VolunteerFrag extends StatefulWidget {
   VolunteerFrag({Key? key}) : super(key: key);
@@ -115,10 +119,23 @@ class _VolunteerFragState extends State<VolunteerFrag> {
               SizedBox(height: getProportionateScreenHeight(15)),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  HelperFunction.getProfSharedPreference().then((value) => {
+                    if(value!){
+
+                      Fluttertoast.showToast(msg: "You are already approved as Affilaite Professional. You can access the professional features from Navigation Menu")
+                      // Navigator.push(
+                      // context,
+                      // MaterialPageRoute(
+                      //     builder: (context) => ProfessionalFrag()))
+                     // return new ProfessionalFrag();
+                    }else{
+                      Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AffliateProfPage()));
+                          builder: (context) => AffliateProfPage()))
+                    }
+                  });
+
                 },
                 child: Text(
                   "Professional",

@@ -3,6 +3,8 @@ import 'package:cross_comp/screens/splashscreen/splashscreen.dart';
 import 'package:cross_comp/theme.dart';
 import 'package:flutter/material.dart';
 
+import 'models/user.dart';
+
 void main() {
   runApp(MyApp());
 }

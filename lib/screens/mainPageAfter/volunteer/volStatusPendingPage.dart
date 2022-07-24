@@ -24,9 +24,9 @@ class _StatusPendingPageState extends State<StatusPendingPage> {
         ),
         backgroundColor: kPrimaryColor,
         title: Text(
-          "Status Pending",
+          "Volunteer Status",
           textAlign: TextAlign.center,
-          maxLines: 2,
+          maxLines: 1,
           style: TextStyle(
             color: Colors.white,
             fontSize: getProportionateScreenHeight(18),
@@ -50,8 +50,9 @@ class _StatusPendingPageState extends State<StatusPendingPage> {
                 ),
               ),
               SizedBox(height: getProportionateScreenHeight(15)),
+
               Text(
-                "Upon approval, we will send you a link for up-grading your App.",
+                "You now have access to our",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(20),
@@ -61,7 +62,7 @@ class _StatusPendingPageState extends State<StatusPendingPage> {
               ),
               SizedBox(height: getProportionateScreenHeight(15)),
               DefaultButton(
-                  text: "Menu",
+                  text: "Volunteer Menu",
                   press: () {
                     HelperFunction.saveVolSharedPreference(true);
                     Navigator.of(context).pushAndRemoveUntil(

@@ -51,7 +51,17 @@ class _StatusPendingPageState extends State<StatusPendingPage> {
               ),
               SizedBox(height: getProportionateScreenHeight(15)),
               Text(
-                "Upon approval, we will send you a link for up-grading your App.",
+                "Upon approval, you will have access to our Professional Menu.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(20),
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              Text(
+                "Please allow up to 48 hours for us to approve and upgrade your CrossComp App.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(20),
@@ -61,7 +71,7 @@ class _StatusPendingPageState extends State<StatusPendingPage> {
               ),
               SizedBox(height: getProportionateScreenHeight(15)),
               DefaultButton(
-                  text: "Menu",
+                  text: "Main Menu",
                   press: () {
                     HelperFunction.saveProfSharedPreference(true);
                     Navigator.of(context).pushAndRemoveUntil(

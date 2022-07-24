@@ -49,7 +49,7 @@ class _AffiliateVolPageState extends State<AffiliateVolPage> {
                 ),
               ),
               Text(
-                "You are eligible to Affiliate with our fitness network as a:",
+                "you are eligible to Affiliate with our fitness network as a:",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(18),
@@ -60,17 +60,18 @@ class _AffiliateVolPageState extends State<AffiliateVolPage> {
               SizedBox(height: getProportionateScreenHeight(50)),
               DefaultButton(
                   text: "Volunteer",
+                  size: 14.0,
                   press: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => VolunteerSignUpPage()));
+                            builder: (context) => VolunteerSignUpPage(isSecondStep: false,)));
                   },
                   clr: kTextGreenColor,
                   isInfinity: true),
               SizedBox(height: getProportionateScreenHeight(50)),
               Text(
-                "As a Volunteer with CrossComps,",
+                "If you become a Volunteer,",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(18),
@@ -79,7 +80,7 @@ class _AffiliateVolPageState extends State<AffiliateVolPage> {
                 ),
               ),
               Text(
-                "You will be eligible to Affiliate with our fitness network as a Professional, as well.",
+                "you will be eligible to Affiliate with our fitness network as a Professional, as well.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(18),

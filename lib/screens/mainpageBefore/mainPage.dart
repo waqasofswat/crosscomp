@@ -142,7 +142,7 @@ class _MainPageState extends State<MainPage> {
                     isInfinity: true),
                 SizedBox(height: getProportionateScreenHeight(15)),
                 Text(
-                  "*Anytime, anywhere that service are offered as our network is still growing.",
+                  "*Anytime, anywhere that CrossComps are provided as our Network grows.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: getProportionateScreenWidth(16),
@@ -151,15 +151,18 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 SizedBox(height: getProportionateScreenHeight(15)),
-                InkWell(
-                  onTap: _launchURL,
-                  child: Text(
-                    "The cure for preventing or reversing many of the chronic lifestyle-related diseases that plague our modern culture. Learn more",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(16),
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
+                Visibility(
+                  visible: false,
+                  child: InkWell(
+                    onTap: _launchURL,
+                    child: Text(
+                      "The cure for preventing or reversing many of the chronic lifestyle-related diseases that plague our modern culture. Learn more",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(16),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

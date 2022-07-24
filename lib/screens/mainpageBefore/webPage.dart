@@ -1,3 +1,4 @@
+import 'package:cross_comp/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -16,7 +17,7 @@ class WebPage extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.white, //change your color here
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: kPrimaryColor,
         elevation: 0.0,
         title: Text(
           "CrossComps",
@@ -27,9 +28,9 @@ class WebPage extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(1),
             color: Theme.of(context).primaryColor),
-        margin: EdgeInsets.all(15),
+        margin: EdgeInsets.all(1),
         child: WebView(
           initialUrl: url,
         ),

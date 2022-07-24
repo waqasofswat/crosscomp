@@ -11,11 +11,13 @@ import 'package:cross_comp/utilities/constants.dart';
 import 'package:cross_comp/utilities/helperFunction.dart';
 import 'package:cross_comp/utilities/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -177,7 +179,7 @@ print("res "+response.body);
           setState(() {
             // _btnController.error();
             // progress?.dismiss();
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(map['msg']),
             ));
             isLoading = false;
@@ -257,7 +259,16 @@ print("res "+response.body);
                   buildPasswordTextFormField(
                       passwordController: passwordController),
                   SizedBox(height: getProportionateScreenHeight(10)),
-                  buildPostalCodeSpinner(),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Text("Enter Postal Code"),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(3)),
+                  buildPostalCodeSpinner2(),
                   SizedBox(height: getProportionateScreenHeight(10)),
                   Row(
                     children: [
@@ -350,6 +361,7 @@ print("res "+response.body);
       controller: fnameController,
       //onSaved: (newVal)=>emailVar=newVal,
       keyboardType: TextInputType.name,
+      textCapitalization: TextCapitalization.words,
       onChanged: (val) {
         fnameText = val;
       },
@@ -369,6 +381,8 @@ print("res "+response.body);
       {required TextEditingController lnameController}) {
     return TextFormField(
       controller: lnameController,
+      textCapitalization: TextCapitalization.words,
+
       //onSaved: (newVal)=>emailVar=newVal,
       keyboardType: TextInputType.name,
       onChanged: (val) {
@@ -387,8 +401,14 @@ print("res "+response.body);
 
   TextFormField buildPhoneTextFormField(
       {required TextEditingController phoneController}) {
+    var maskFormatter = new MaskTextInputFormatter(
+        mask: '+# (###) ###-##-##',
+        filter: { "#": RegExp(r'[0-9]') },
+        type: MaskAutoCompletionType.lazy
+    );
     return TextFormField(
       controller: phoneController,
+      inputFormatters: [ maskFormatter ],
       //onSaved: (newVal)=>emailVar=newVal,
       keyboardType: TextInputType.number,
       onChanged: (val) {
@@ -629,6 +649,35 @@ print("res "+response.body);
           : Container(),
     );
   }
+  Autocomplete<String> buildPostalCodeSpinner2() {
+    List<String> temparray=[];
+    for (int i=0;i<list.length;i++){
+      temparray.add( list[i].postalCode);
+    }
+    return Autocomplete<String>(
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text == '') {
+
+          return const Iterable<String>.empty();
+        }
+        return temparray.where((String option) {
+          return option.contains(textEditingValue.text.toLowerCase());
+        });
+      },
+      onSelected: (String selection) {
+        debugPrint('You just selected $selection');
+        postalCodeId= int.parse(selection.toString());
+      },
+    );
+  }
+
+  TextField buildPostalCodeSpinner3() {
+    List<String> temparray=[];
+    for (int i=0;i<list.length;i++){
+      temparray.add( list[i].postalCode);
+    }
+    return  TextField(autofillHints: temparray,);
+  }
 
   TextFormField buildPasswordTextFormField(
       {required TextEditingController passwordController}) {
@@ -671,6 +720,8 @@ print("res "+response.body);
       ),
     );
   }
+
+
 }
 
 

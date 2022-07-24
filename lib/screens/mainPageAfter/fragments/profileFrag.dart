@@ -58,6 +58,9 @@ class _ProfileFragState extends State<ProfileFrag> {
 
     print(response.statusCode.toString());
     print(response.body.toString());
+    if(response.body.toString().length>1023){
+     print( response.body.toString().substring(1020));
+    }
     if (response.statusCode == 200) {
       if (response.body.toString().contains("Failure")) {
         print("response Failed");
@@ -81,7 +84,7 @@ class _ProfileFragState extends State<ProfileFrag> {
           try{
 
             print( map["server_response"]["First_Name"].toString());
-            print( map["required_response"]["PostalCode"].toString());
+            print( map["server_response"]["Postal_Code"].toString());
             // if(
             // map["server_response"]["First_Name"].toString() != null
             // ){
@@ -93,7 +96,7 @@ class _ProfileFragState extends State<ProfileFrag> {
             phone = map["server_response"]["Phone"].toString();
             email = map["server_response"]["Email"].toString();
             password = map["server_response"]["Password"].toString();
-            postalCode =map["required_response"]["PostalCode"].toString();
+            postalCode =map["server_response"]["Postal_Code"].toString();
             league = map["server_response"]["League"].toString();
             conference = map["server_response"][""].toString();
             union = map["server_response"][""].toString();
@@ -103,7 +106,7 @@ class _ProfileFragState extends State<ProfileFrag> {
             county =map["required_response"]["County_Name"].toString();
             state = map["required_response"]["State_Name"].toString();
             country = map["required_response"]["Country_Name"].toString();
-            continent = map["server_response"][""].toString();
+            continent = map["required_response"]["Continent_Name"].toString();
             dob = map["server_response"]["Date_Of_Birth"].toString();
             age = map["server_response"]["Age"].toString();
             height = map["server_response"]["Weight"].toString();
@@ -384,14 +387,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        fName,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "First Name",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            fName,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       ElevatedButton(
                         style: ButtonStyle(
@@ -422,14 +439,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        lName,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Last Name",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            lName,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       ElevatedButton(
                         style: ButtonStyle(
@@ -461,7 +492,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Date",
+                        "Joining as Participant",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black87,
@@ -490,7 +521,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Date",
+                        "Joining as Volunteer",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black87,
@@ -519,7 +550,7 @@ class _ProfileFragState extends State<ProfileFrag> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Date",
+                        "Joining as Professional",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black87,
@@ -547,14 +578,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        phone,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Phone #",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            phone,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       ElevatedButton(
                         style: ButtonStyle(
@@ -585,14 +630,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        email,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Email",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            email,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       ElevatedButton(
                         style: ButtonStyle(
@@ -661,14 +720,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        postalCode,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Postal Code",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            postalCode,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       ElevatedButton(
                         style: ButtonStyle(
@@ -699,14 +772,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        league,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "League",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            league,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -719,14 +806,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        conference,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Conference",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            conference,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -739,14 +840,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        union,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Union",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            union,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -759,14 +874,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        division,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Division",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            division,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -779,14 +908,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        city,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "City",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            city,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -799,14 +942,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        county,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "County",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            county,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -819,14 +976,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        state,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "State",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            state,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -839,14 +1010,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        country,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Country",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            country,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -859,14 +1044,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        continent,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Continent",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            continent,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -879,14 +1078,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        dob,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Date of Birth",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            dob,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -899,14 +1112,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        age,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Age",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            age,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -919,14 +1146,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        height,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Height",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            height,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -939,14 +1180,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        weight,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Weight",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            weight,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -959,14 +1214,28 @@ class _ProfileFragState extends State<ProfileFrag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        bmi,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: getProportionateScreenHeight(17),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "BMI",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            bmi,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: getProportionateScreenHeight(17),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

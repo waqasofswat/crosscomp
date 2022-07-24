@@ -9,6 +9,10 @@ class HelperFunction {
   static String sharedPreferencesUserPassKey = "USERPASSKEY";
   static String sharedPreferencesUserTypeKey = "USERTYPEKEY";
   //////////////////////////////////////////////////////////////////////////////
+  static String sharedPreferencesPQ1Key = "PQ_1";
+  static String sharedPreferencesPQ2Key = "PQ_2";
+  static String sharedPreferencesPQ3Key = "PQ_3";
+  //////////////////////////////////////////////////////////////////////////////
   static String sharedPreferencesReservationKey = "reservation";
   static String sharedPreferencesHQ1Key = "HQ_1";
   static String sharedPreferencesHQ2Key = "HQ_2";
@@ -83,6 +87,19 @@ class HelperFunction {
   static Future<bool> saveVolSharedPreference(bool isVol) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setBool(sharedPreferencesVolKey, isVol);
+  }
+
+  static Future<bool> savePQ1SharedPreference(String pQ1) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(sharedPreferencesPQ1Key, pQ1);
+  }
+  static Future<bool> savePQ2SharedPreference(String pQ2) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(sharedPreferencesPQ2Key, pQ2);
+  }
+  static Future<bool> savePQ3SharedPreference(String pQ3) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString(sharedPreferencesPQ3Key, pQ3);
   }
 
   static Future<bool> saveHQ1SharedPreference(bool hQ1) async {
@@ -231,6 +248,18 @@ class HelperFunction {
     return prefs.getBool(sharedPreferencesUserLoggedInKey);
   }
 
+  static Future<String?> getPQ1SharedPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(sharedPreferencesPQ1Key);
+  }
+  static Future<String?> getPQ2SharedPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(sharedPreferencesPQ2Key);
+  }
+  static Future<String?> getPQ3SharedPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(sharedPreferencesPQ3Key);
+  }
   static Future<bool?> getHQ1SharedPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(sharedPreferencesHQ1Key);

@@ -151,7 +151,7 @@ class _AssistantTrainersState extends State<AssistantTrainers> {
                     position: LatLng(lat, lng),
                     infoWindow: InfoWindow(
                         title: title,
-                        snippet: "This is an Event",
+                        snippet: "",
                         onTap: () {
                           Navigator.pushReplacement(
                               context,
@@ -170,7 +170,7 @@ class _AssistantTrainersState extends State<AssistantTrainers> {
                     position: LatLng(lat, lng),
                     infoWindow: InfoWindow(
                         title: title,
-                        snippet: "This is an Event",
+                        snippet: "",
                         onTap: () {
                           Navigator.pushReplacement(
                               context,
@@ -248,7 +248,7 @@ class _AssistantTrainersState extends State<AssistantTrainers> {
                     position: LatLng(lat,lng),
                     infoWindow: InfoWindow(
                         title: title,
-                        snippet: "This is a facility",
+                        snippet: "",
                         onTap: () {
 
                           Navigator.pushReplacement(
@@ -271,7 +271,7 @@ class _AssistantTrainersState extends State<AssistantTrainers> {
                     position: LatLng(lat,lng),
                     infoWindow: InfoWindow(
                         title: title,
-                        snippet: "This is a facility",
+                        snippet: "",
                         onTap: () {
 
                           Navigator.pushReplacement(

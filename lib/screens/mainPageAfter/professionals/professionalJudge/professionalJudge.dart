@@ -158,7 +158,7 @@ class _ProfessionalJudgeState extends State<ProfessionalJudge> {
                     position: LatLng(lat,lng),
                     infoWindow: InfoWindow(
                         title: title,
-                        snippet: "This is a facility",
+                        snippet: "",
                         onTap: () {
 
                             Navigator.pushReplacement(
@@ -181,7 +181,7 @@ class _ProfessionalJudgeState extends State<ProfessionalJudge> {
                     position: LatLng(lat,lng),
                     infoWindow: InfoWindow(
                         title: title,
-                        snippet: "This is a facility",
+                        snippet: "",
                         onTap: () {
 
                           Navigator.pushReplacement(
